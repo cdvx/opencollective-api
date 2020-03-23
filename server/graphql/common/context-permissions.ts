@@ -31,12 +31,17 @@ export enum PERMISSION_TYPE {
   SEE_ACCOUNT_LOCATION = 'SEE_ACCOUNT_LOCATION',
   SEE_EXPENSE_ATTACHMENTS_URL = 'SEE_EXPENSE_ATTACHMENTS_URL',
   SEE_PAYOUT_METHOD_DATA = 'SEE_PAYOUT_METHOD_DATA',
+  SEE_INCOGNITO_ACCOUNT_DETAILS = 'SEE_INCOGNITO_ACCOUNT_DETAILS',
 }
 
 /**
  * Build a key to get/set a value in permissions.
  */
 const buildKey = (permissionType: PERMISSION_TYPE, entityId: string | number): string => {
+  if (!entityId) {
+    throw new Error('Not authorized to access an empty entity');
+  }
+
   return `permissions.${permissionType}.${entityId}`;
 };
 
